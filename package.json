@@ -1,21 +1,27 @@
 {
-  "name": "weather-agent",
+  "name": "weather-decoration-agent",
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "mastra dev"
+    "test": "npx tsx simple-test.ts",
+    "test-integration": "npx tsx simple-test.ts",
+    "dev": "mastra dev",
+    "build": "mastra build",
+    "start": "mastra start"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
-  "description": "One Agent, one Workflow and one Tool to bring you the weather in your city.",
+  "description": "Multi-purpose AI agent with weather information and comprehensive home decoration capabilities using RAG and 3D positioning.",
   "type": "module",
   "dependencies": {
     "@ai-sdk/openai": "^1.3.24",
     "@mastra/core": "latest",
+    "@mastra/libsql": "latest",
     "@mastra/loggers": "latest",
+    "@mastra/memory": "latest",
+    "ai": "^4.3.19",
     "zod": "^3.25.76"
   },
   "devDependencies": {
