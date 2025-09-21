@@ -6,7 +6,8 @@ import {
   furnitureSelectionTool, 
   furnitureArrangementTool, 
   decorationEvaluationTool,
-  furnitureSearchTool
+  furnitureSearchTool,
+  designerFurnitureArrangementTool
 } from '../tools/furniture-tool';
 
 export const decorationAgent = new Agent({
@@ -48,6 +49,7 @@ export const decorationAgent = new Agent({
     - furnitureSearchTool: Search and retrieve furniture from the dataset using RAG
     - furnitureSelectionTool: Select furniture based on room and preferences using RAG
     - furnitureArrangementTool: Arrange furniture with 3D/2D positioning
+    - designerFurnitureArrangementTool: Advanced furniture arrangement with professional designer techniques
     - decorationEvaluationTool: Evaluate the final arrangement
 
     Always guide users through each step clearly and provide detailed explanations for your recommendations.
@@ -57,7 +59,8 @@ export const decorationAgent = new Agent({
     furnitureSearchTool,
     furnitureSelectionTool, 
     furnitureArrangementTool, 
-    decorationEvaluationTool 
+    decorationEvaluationTool,
+    designerFurnitureArrangementTool
   },
   memory: new Memory({
     storage: new LibSQLStore({
