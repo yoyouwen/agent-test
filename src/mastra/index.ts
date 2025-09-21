@@ -5,7 +5,6 @@ import { weatherWorkflow } from './workflows/index';
 import { decorationWorkflow } from './workflows/decoration-workflow';
 import { weatherAgent } from './agents/index';
 import { decorationAgent } from './agents/decoration-agent';
-
 export const mastra = new Mastra({
   workflows: { weatherWorkflow, decorationWorkflow },
   agents: { weatherAgent, decorationAgent },
