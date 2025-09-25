@@ -100,3 +100,12 @@ function getWeatherCondition(code: number): string {
   };
   return conditions[code] || 'Unknown';
 }
+
+// Export furniture tools
+export { 
+  furnitureSelectionTool, 
+  furnitureArrangementTool, 
+  decorationEvaluationTool,
+  furnitureSearchTool,
+  designerFurnitureArrangementTool
+} from './furniture-tool';
