@@ -1234,11 +1234,14 @@ The room feels visually balanced—neither too empty nor cluttered.
 
 **ROTATION INSTRUCTIONS**:
 - Rotation is specified in degrees: 0°, 90°, 180°, 270°
-- 0° = Default orientation (length along Y-axis, width along X-axis)
-- 90° = Rotated clockwise (dimensions swap: width becomes length, length becomes width)
-- 180° = Rotated 180° (same dimensions as 0°, just flipped)
-- 270° = Rotated counter-clockwise (dimensions swap like 90°)
+- **CRITICAL**: 0° = Furniture faces DOWN (towards bottom of room, Y=0 direction)
+- 0° = Default orientation: furniture front faces down (Y↓), length along Y-axis, width along X-axis
+- 90° = Rotated clockwise: furniture front faces RIGHT (X→), dimensions swap
+- 180° = Rotated 180°: furniture front faces UP (Y↑), same dimensions as 0°
+- 270° = Rotated counter-clockwise: furniture front faces LEFT (X←), dimensions swap
+- **VISUALIZATION**: An arrow will be drawn at furniture center indicating the facing direction
 - Use rotation strategically for better fit and traffic flow
+- Example: A bed at 0° has headboard at top (facing down), at 180° has headboard at bottom (facing up)
 - Example: A bench [1.5L × 4W] can be rotated 90° to become [4L × 1.5W] for different placement needs
 
 **REFERENCE EXAMPLES FROM REAL DATA**:
@@ -2557,11 +2560,36 @@ async function generateIntegratedVisualization(
             ctx.strokeStyle = '#333';
             ctx.strokeRect(x, y, item.width * scale, item.length * scale);
             
+            // Draw direction arrow at center
+            const centerX = x + (item.width * scale) / 2;
+            const centerY = y + (item.length * scale) / 2;
+            const arrowSize = Math.min(item.width * scale, item.length * scale) * 0.3; // 30% of smallest dimension
+            
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            // Rotate: 0° points down, 90° points right, 180° points up, 270° points left
+            ctx.rotate((item.rotation || 0) * Math.PI / 180);
+            
+            // Draw arrow pointing down (in furniture's local coordinate system)
+            // 0° = down (towards bottom of room)
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.beginPath();
+            ctx.moveTo(0, arrowSize); // Arrow tip (pointing down)
+            ctx.lineTo(-arrowSize * 0.4, 0); // Left wing
+            ctx.lineTo(arrowSize * 0.4, 0); // Right wing
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw arrow shaft
+            ctx.fillRect(-arrowSize * 0.15, -arrowSize * 0.6, arrowSize * 0.3, arrowSize * 0.6);
+            
+            ctx.restore();
+            
             // Draw name
             ctx.fillStyle = '#000';
             ctx.font = '10px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(item.name, x + (item.width * scale) / 2, y + (item.length * scale) / 2);
+            ctx.fillText(item.name, centerX, centerY + arrowSize + 12);
         });
     </script>
 </body>
